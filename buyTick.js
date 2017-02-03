@@ -15,7 +15,7 @@ function post(postHeaders, postData, resolve){
         const j = JSON.parse(data, null, 4);
         if(j.HasError){
             set = setTimeout(()=>{
-                post(postHeaders, postData);
+                post(postHeaders, postData, resolve);
             }, 2000);
         }else{
             resolve(j);
