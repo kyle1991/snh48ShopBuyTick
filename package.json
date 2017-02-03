@@ -1,0 +1,15 @@
+{
+  "name": "snh抢票",
+  "version": "0.0.1",
+  "description": "snh抢票",
+  "main": "start.js",
+  "dependencies": {
+    "nodegrass": "^0.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
