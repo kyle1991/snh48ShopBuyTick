@@ -15,6 +15,7 @@ node --harmony start.js
   * seattype：票的类别。2，VIP坐票；3，普通坐票；4，普通站票。
   * brand_id：剧场类型。1，SNH48；2，BEJ48；3，GNZ48；4，SHY48
   * raceNumber：抢票次数
+  * times：抢票间隔时间（ms）
   * cookie: cookie
 
 4、返回结果
