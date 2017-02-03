@@ -2,18 +2,25 @@ const nodegrass = require('nodegrass');
 const options = require('./options.js');
 
 const href = 'https://shop.48.cn/TOrder/add'; // 买票的地址
-
+let set = null;                                   // 定时器
 /**
  *  进行一次抢票
  *  @param {object} postHeaders : 请求头
  *  @param {object} postData    : 请求参数
+ *  @param resolve
  */
-function post(postHeaders, postData){
-    return new Promise((resolve, reject)=>{
-        nodegrass.post(href, (data, status, headers)=>{
-            resolve([data, status, headers]);
-        }, postHeaders, postData);
-    });
+function post(postHeaders, postData, resolve){
+    nodegrass.post(href, (data, status, headers)=>{
+        console.log(data);
+        const j = JSON.parse(data, null, 4);
+        if(j.HasError){
+            set = setTimeout(()=>{
+                post(postHeaders, postData);
+            }, 2000);
+        }else{
+            resolve(j);
+        }
+    }, postHeaders, postData);
 }
 
 /**
@@ -44,12 +51,9 @@ function buyTick(id, brand_id = 1, seattype = 3, num = 1){
         'Cookie': options['cookie']
     };
 
-    const raceArray = [];
-    // 此处为抢票次数，只要有一个成功，则为抢票成功
-    for(let i = 0; i < options['raceNumber']; i++){
-        raceArray.push(post(postHeaders, postData));
-    }
-    return Promise.race(raceArray);
+    return new Promise((resolve, reject)=>{
+        post(postHeaders, postData, resolve);
+    });
 }
 
 module.exports = buyTick;
