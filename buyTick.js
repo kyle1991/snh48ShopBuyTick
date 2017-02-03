@@ -2,7 +2,7 @@ const nodegrass = require('nodegrass');
 const options = require('./options.js');
 
 const href = 'https://shop.48.cn/TOrder/add'; // 买票的地址
-let set = null;                                   // 定时器
+let set = null;                               // 定时器
 /**
  *  进行一次抢票
  *  @param {object} postHeaders : 请求头
@@ -16,7 +16,7 @@ function post(postHeaders, postData, resolve){
         if(j.HasError){
             set = setTimeout(()=>{
                 post(postHeaders, postData, resolve);
-            }, 2000);
+            }, options['times']);
         }else{
             resolve(j);
         }
